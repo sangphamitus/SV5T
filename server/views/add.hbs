@@ -1,0 +1,238 @@
+<script>
+  function addBreak(el) {
+  var textarea = el;
+  var matches = textarea.value.split(/\n|\s\n/);
+  return matches.join("<br>\n") + "<br>"
+
+}
+
+
+// Upload function internally uses the ImageKit.io javascript SDK
+
+function submit()
+  {
+   
+    if(document.getElementById('id').value!=="")
+    {
+      const achievement=`
+      <b>Khoa:</b> ${document.getElementById('faculty').value} <br/>
+      <b>Khóa:</b> ${document.getElementById('gen').value} <br/>
+      <b>Lớp:</b> ${document.getElementById('clss').value} <br/>
+      <b>Điểm rèn luyện:</b> ${document.getElementById('drl').value} <br/>
+      <b>Điểm học tập:</b> ${document.getElementById('dht').value} <br/>
+      <br/>
+      <b>Đạo đức tốt:</b> <br/>
+      ${addBreak(document.getElementById('ddt'))}
+      <b>Học tập tốt:</b> <br/>
+      ${addBreak(document.getElementById('htt'))}
+      <b>Thể lực tốt:</b> <br/>
+      ${addBreak(document.getElementById('tlt'))}   
+      <b>Tình nguyện tốt:</b> <br/>
+      ${addBreak(document.getElementById('tnt'))}   
+      <b>Hội nhập tốt:</b> <br/>
+      ${addBreak(document.getElementById('hnt'))}  
+      `
+      
+                const data={
+              id:document.getElementById('id').value,
+              img:document.getElementById('image1').value,
+        fmname:document.getElementById('fmname').value,
+        name:document.getElementById('name').value,
+        dob:document.getElementById('dob').value,
+        drl:document.getElementById('drl').value,
+        dht:document.getElementById('dht').value,
+        place:document.getElementById('place').value,
+        clss:document.getElementById('clss').value,
+        faculty:document.getElementById('faculty').value,
+        gen:document.getElementById('gen').value,
+        course:document.getElementById('course').value,
+        ddt:addBreak(document.getElementById('ddt')),
+        htt:addBreak(document.getElementById('htt')),
+        tlt:addBreak(document.getElementById('tlt')),
+        tnt:addBreak(document.getElementById('tnt')),
+        hnt:addBreak(document.getElementById('hnt')),
+        achievement
+
+      }
+    
+      fetch("contestant/add", {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: JSON.stringify(data) // body data type must match "Content-Type" header
+        }).then(response=>
+          response.json()
+        ).then((data) => {
+          console.log('Success:', data);
+          if(data==="contestants exist")
+          {
+            alert(data);
+          }
+          else 
+          {
+            window.location.reload();
+          }
+ 
+          })
+    
+     
+    }
+  }
+// SDK initialization
+
+</script>
+
+<div class="d-flex justify-content-center h-100">
+    Add Contestants
+  </div>
+<div class="p-3">
+  <div>
+    <div class="d-flex">
+      <div class=" form-floating mb-3 w-50 px-3">
+          <input type="text" class="form-control"id="image1" name="image1">
+         <label for="image1">Choose a profile picture:</label>
+      
+      </div>
+      <div class="w-50">
+        <div class="d-flex justify-content-start ">
+            <div class="form-floating mb-3 ">
+              
+              <input type="text" class="form-control" id="id" aria-describedby="MSSV-HV">
+              <label for="id">MSSV-HV</label>
+            </div>
+            <div class="form-floating mb-3 mx-4">
+
+              <input type="text" class="form-control" id="fmname">
+                  <label for="fmname" >Họ và Tên Lót</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="name">
+              <label for="name" >Tên</label>
+              
+            </div>
+        </div>
+        <div class="d-flex justify-content-start">
+            <div class="form-floating mb-3">
+              <input type="date" class="form-control" id="dob">
+                    <label for="dob" >Ngày sinh</label>
+            </div>
+          <div class="form-floating mb-3 mx-4">
+
+            <input type="text" class="form-control" id="place">
+                <label for="place" >Nơi sinh</label>
+          </div>
+        </div>
+      </div>
+  </div>
+   <div class="d-flex justify-content-start">
+   <div class="form-floating mb-3 ">
+
+    <input type="text" class="form-control" id="clss">
+        <label for="clss" >Lớp</label>
+  </div>
+   <div class="form-floating mb-3 mx-4">
+ 
+    <input type="text" class="form-control" id="faculty">
+       <label for="faculty">Ngành/ Chuyên ngành/ Khoa</label>
+  </div>
+  <div class="form-floating mb-3 mx-4">
+
+    <input type="text" class="form-control" id="gen">
+        <label for="gen" >Khóa</label>
+  </div>
+  <div class="form-floating mb-3">
+
+    <input type="text" class="form-control" id="course">
+        <label for="course" >Hệ đào tạo</label>
+  </div>
+  </div>
+  <div class="d-flex justify-content-start">
+    <div class="form-floating mb-3">
+
+    <input type="text" class="form-control" id="drl">
+        <label for="drl" >Điểm rèn luyện</label>
+    </div>
+    <div class="form-floating mb-3 mx-4">
+
+    <input type="text" class="form-control" id="dht">
+        <label for="dht" >Điểm học tập</label>
+    </div>
+  </div>
+    <div class="form-floating mb-3">
+        <textarea type="text" class="form-control" id="ddt" style="height:150px"> </textarea>
+        <label for="ddt " >Đạo đức tốt</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea type="text" class="form-control" id="htt"  style="height:150px"></textarea>
+        <label for="htt " >Học tập tốt</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea type="text" class="form-control" id="tlt" style="height:150px"></textarea>
+        <label for="tlt " >Thể lực tốt</label>
+    </div>
+      <div class="form-floating mb-3">
+        <textarea type="text" class="form-control" id="tnt" style="height:150px"> </textarea>
+        <label for="tnt " >Tình nguyện tốt</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea type="text" class="form-control" id="hnt" style="height:150px"></textarea>
+        <label for="hnt " >Hội nhập tốt</label>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mb-3">
+  <button type="submit" onclick="submit()" class="btn btn-primary">Save</button>
+
+  </div>
+</div>
+</div>
+<div >
+  
+<table class="table table-striped table-bordered text-center w-100">
+   <thead class="table-light">
+    <tr>
+      <th scope="col">Ảnh</th>
+      <th scope="col">MSSV-HV</th>
+      <th scope="col">Họ và chũ lót</th>
+      <th scope="col">Tên</th>
+      <th scope="col">Ngày sinh</th>
+      <th scope="col">Nơi sinh</th>
+      <th scope="col">Lớp</th>
+      <th scope="col">Ngành/ Chuyên ngành/ Khoa</th>
+      <th scope="col">Khóa</th>
+      <th scope="col">Hệ đào tạo</th>
+      <th scope="col">Thành tích</th>
+
+      
+    </tr>
+  </thead>
+  <tbody>
+    
+    {{#each data}}
+     <tr>
+      <td ><img src="{{this.img}}"style="width:100px;height:100px" /></th>
+      <td >{{this.id}}</th>
+      <td>{{this.fmname}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.dob}}</td>
+      <td>{{this.place}}</td>
+      <td>{{this.clss}}</td>
+      <td>{{this.faculty}}</td>
+      <td>{{this.gen}}</td>
+      <td>{{this.course}}</td>
+      <td class="text-start">{{{this.achievement}}}</td>
+  
+      
+    </tr>
+    {{/each}}
+   
+ 
+  </tbody>
+</table>
+</div>

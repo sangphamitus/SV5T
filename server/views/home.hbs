@@ -1,0 +1,86 @@
+<script>
+  function submit(id)
+  {
+                    const data={
+              id,
+                    }
+     fetch("contestant/delete", {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          redirect: 'follow', // manual, *follow, error
+          referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+          body: JSON.stringify(data) // body data type must match "Content-Type" header
+        }).then(response=>
+          response.json()
+        ).then((data) => {
+          console.log('Success:', data);
+          if(data==="contestants exist")
+          {
+            alert(data);
+          }
+          else 
+          {
+            window.location.reload();
+          }
+ 
+          })
+  }
+</script>
+<div class="d-flex justify-content-center h-100">
+    List Contestants
+  </div>
+<div >
+<table class="table table-striped table-bordered text-center overflow-y-scroll ">
+  <thead class="table-light">
+    <tr>
+      <th scope="col">Ảnh</th>
+      <th scope="col">MSSV-HV</th>
+      <th scope="col">Họ và chũ lót</th>
+      <th scope="col">Tên</th>
+      <th scope="col">Ngày sinh</th>
+      <th scope="col">Nơi sinh</th>
+      <th scope="col">Lớp</th>
+      <th scope="col">Ngành/ Chuyên ngành/ Khoa</th>
+      <th scope="col">Khóa</th>
+      <th scope="col">Hệ đào tạo</th>
+      <th scope="col">Thành tích</th>
+      <th scope="col">Chỉnh sửa/Xóa</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {{#each data}}
+     <tr>
+      <td ><img src="{{this.img}}"style="width:100px;height:100px" /></th>
+      <td >{{this.id}}</th>
+      <td>{{this.fmname}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.dob}}</td>
+      <td>{{this.place}}</td>
+      <td>{{this.clss}}</td>
+      <td>{{this.faculty}}</td>
+      <td>{{this.gen}}</td>
+      <td>{{this.course}}</td>
+      <td class="text-start">{{{this.achievement}}}</td>
+        <td><div >
+           <form action="/edit/{{this.id}}" class="mb-3">
+                <input type="submit" class="btn btn-warning" value="Edit" />
+            </form>
+
+          <button class="btn btn-danger" onclick="submit({{this.id}})">Delete</button>
+        </div>  
+      </td>
+      
+    </tr>
+    {{/each}}
+   
+ 
+  </tbody>
+</table>
+    </div>

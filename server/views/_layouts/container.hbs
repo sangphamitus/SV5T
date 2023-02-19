@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap.min.css">
+  <link rel="stylesheet" href="./fontawesome.min.css">
+    
+    <title>SV5T admin</title>
+    
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">AdminSV5T</a>
+            <form action="/search" method="GET"class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="inp">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <div class="d-flex justify-content-between">
+            <form action="/sum" class="mx-4">
+                <input type="submit" class="btn btn-primary" value="Summary" />
+            </form>
+            <form action="/add">
+                <input type="submit" class="btn btn-primary" value="+New" />
+            </form>
+            </div>
+        </div>
+        </nav>
+     {{{body}}}
+</body>
+</html>
