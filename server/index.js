@@ -32,11 +32,9 @@ app.engine(
 app.use('/contestant', require('./router/contestant.r'), errorHandler)
 app.get('/', require('./controller/contestant.c').getAllView, errorHandler)
 app.get('/add', require('./controller/contestant.c').addView, errorHandler)
-app.get(
-  '/edit/:id',
-  require('./controller/contestant.c').editView,
-  errorHandler,
-)
+
+app.use('/edit', require('./router/edit.r'), errorHandler)
+
 app.get('/search', require('./controller/contestant.c').search, errorHandler)
 app.post('/voting', require('./controller/votting.c').voting, errorHandler)
 app.get('/sum', require('./controller/votting.c').getallVoting, errorHandler)
