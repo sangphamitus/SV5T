@@ -89,17 +89,18 @@ module.exports = {
     }
   },
   editView: async (req, res, next) => {
-    const id = req.query.id
-    const result = await contestantsM.getContestant(id)
+    try {
+      const id = req.query.id
+      const result = await contestantsM.getContestant(id)
 
-    return res.render('edit.hbs', {
-      data: result,
-    })
-    // } catch (err) {
-    //   return res.render('error.hbs', {
-    //     err: err,
-    //   })
-    // }
+      return res.render('edit.hbs', {
+        data: result,
+      })
+    } catch (err) {
+      return res.render('error.hbs', {
+        err: err,
+      })
+    }
   },
   edit: async (req, res, next) => {
     try {
