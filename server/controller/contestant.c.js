@@ -101,18 +101,31 @@ module.exports = {
   //   }
   // },
   editView: async (req, res, next) => {
-    const id = req.query.id
-    const result = await contestantsM.getContestant(id)
+    try {
+      let id = req.query.id
 
-    return res.render('edit.hbs', {
-      data: result,
-    })
-    // } catch (err) {
-    //   return res.render('error.hbs', {
-    //     err: err,
-    //   })
-    // }
+      const result = await contestantsM.search(id)
+      return res.render('home.hbs', {
+        data: result,
+      })
+    } catch (err) {
+      next(err)
+    }
   },
+  // editView: async (req, res, next) => {
+  //   const id = req.query.id
+  //   const result = await contestantsM.getContestant(id)
+
+  //   console.log(result)
+  //   return res.render('edit.hbs', {
+  //     data: result,
+  //   })
+  //   // } catch (err) {
+  //   //   return res.render('error.hbs', {
+  //   //     err: err,
+  //   //   })
+  //   // }
+  // },
   edit: async (req, res, next) => {
     try {
       let {
