@@ -57,7 +57,7 @@ module.exports = {
     list.docs.map((doc) => data.push(doc.data()))
     return data
   },
-  getContestant: async ({ id }) => {
+  getContestant: async (id) => {
     const data = await db.collection('contestants').doc(id).get()
     const result = data.data()
     console.log(result)
