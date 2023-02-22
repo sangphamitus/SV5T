@@ -97,7 +97,9 @@ module.exports = {
         data: result,
       })
     } catch (err) {
-      return res.render('error.hbs', {})
+      return res.render('error.hbs', {
+        err: err,
+      })
     }
   },
   edit: async (req, res, next) => {
