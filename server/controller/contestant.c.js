@@ -90,7 +90,7 @@ module.exports = {
   },
   editView: async (req, res, next) => {
     try {
-      const id = req.query.id
+      const { id } = req.body
       const result = await contestantsM.getContestant({ id })
 
       return res.render('edit.hbs', {
