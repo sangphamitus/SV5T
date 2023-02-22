@@ -93,11 +93,11 @@ module.exports = {
       dht,
       gen,
       course,
-      ddt: ddt.replaceAll('<br>', ''),
-      htt: htt.replaceAll('<br>', ''),
-      tlt: tlt.replaceAll('<br>', ''),
-      tnt: tnt.replaceAll('<br>', ''),
-      hnt: hnt.replaceAll('<br>', ''),
+      ddt: ddt.split('<br>').join(''),
+      htt: htt.split('<br>').join(''),
+      tlt: tlt.split('<br>').join(''),
+      tnt: tnt.split('<br>').join(''),
+      hnt: hnt.split('<br>').join(''),
       achievement,
     }
 
