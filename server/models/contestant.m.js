@@ -80,7 +80,7 @@ module.exports = {
       hnt,
       achievement,
     } = result
-    const resultSale = {
+    let resultSale = {
       id,
       img,
       fmname,
