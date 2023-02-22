@@ -60,7 +60,7 @@ module.exports = {
   getContestant: async (id) => {
     const data = await db.collection('contestants').doc(id).get()
     const result = data.data()
-    console.log(result)
+
     let {
       img,
       fmname,
@@ -80,7 +80,7 @@ module.exports = {
       hnt,
       achievement,
     } = result
-    const as = {
+    const resultSale = {
       id,
       img,
       fmname,
@@ -100,8 +100,8 @@ module.exports = {
       hnt: hnt.replaceAll('<br>', ''),
       achievement,
     }
-    console.log(as)
-    return as
+
+    return resultSale
   },
   editContestant: async ({
     id,
