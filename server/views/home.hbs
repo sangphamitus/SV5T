@@ -2,7 +2,7 @@
   function submit(id)
   {
                     const data={
-              id,
+              id:String(id),
                     }
      fetch("contestant/delete", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.

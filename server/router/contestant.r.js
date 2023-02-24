@@ -14,4 +14,7 @@ router.post('/edit', contestantC.edit, () => {
 router.post('/delete', contestantC.delete, () => {
   next()
 })
+router.post('/clientGet', contestantC.clientGet, () => {
+  next()
+})
 module.exports = router

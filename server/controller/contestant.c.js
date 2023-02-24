@@ -43,14 +43,14 @@ module.exports = {
         hnt,
         achievement,
       })
-
+      console.log(result)
       if (result === true || result === false)
         res.status(200).send({
           messages: result ? 'add successed' : 'contestants exist',
         })
       else {
         res.status(200).send({
-          messages: 'error',
+          messages: result,
         })
       }
     } catch (err) {
@@ -187,7 +187,7 @@ module.exports = {
   },
   delete: async (req, res, next) => {
     try {
-      let { id } = req.body
+      let id = req.body.id
       console.log(id)
       const result = await contestantsM.deleteContestant(id)
       if (result === true || result === false)
@@ -210,6 +210,19 @@ module.exports = {
       const result = await contestantsM.search(inp)
       return res.render('home.hbs', {
         data: result,
+      })
+    } catch (err) {
+      next(err)
+    }
+  },
+  clientGet: async (req, res, next) => {
+    try {
+      const { maxPage, returnData } = await contestantsM.clientGet(req.body)
+
+      return res.status(200).send({
+        maxPage,
+        returnData,
+        messages: 'success',
       })
     } catch (err) {
       next(err)

@@ -4,28 +4,60 @@ var emailCheck = require('email-check')
 module.exports = {
   voting: async ({ id, email }) => {
     try {
-      if ((await contestantM.checkContestants(id)) !== true) {
-        return 'Not exist id'
+      const total = await db.query(
+        `SELECT * FROM public."Voting" WHERE  "email" like $1`,
+        [email],
+      )
+      if (total.length >= 3) {
+        return 'already'
       } else {
-        const exist_email = await emailCheck(email)
-        if (exist_email === false) {
-          return 'Not exist email'
-        } else {
-          const line = await db.query(
-            `SELECT * FROM public."Voting" WHERE "id" like $1 and "email" like $2`,
-            [id, email],
-          )
-          console.log(line)
-          if (line.length > 0) {
-            return 'already voting'
+        let map = []
+        let count = total.length
+        id.forEach((element) => {
+          if (!total.some((item) => item.id === element)) {
+            map.push(element)
+            count = count + 1
+            if (count <= 3) {
+              db.query(
+                `INSERT INTO  public."Voting"(id,email,"timeStamp") values($1,$2,$3)`,
+                [element, email, new Date()],
+              )
+            }
           }
-          db.query(
-            `INSERT INTO  public."Voting"(id,email,"timeStamp") values($1,$2,$3)`,
-            [id, email, new Date()],
-          )
-          return 'Succeed'
-        }
+        })
+
+        return 3 - total.length - map.length >= 0
+          ? 3 - total.length - map.length
+          : 0
       }
+
+      // var totalVote = 3 - total.length
+      // if (total.length >= 3) {
+      //   return 'already'
+      // }
+      // id.forEach(async (element) => {
+      //   sum = await db.query(
+      //     `SELECT * FROM public."Voting" WHERE  "email" like $1`,
+      //     [email],
+      //   )
+      //   if (sum.length < 3) {
+      //     const line = await db.query(
+      //       `SELECT * FROM public."Voting" WHERE "id" like $1 and "email" like $2`,
+      //       [element, email],
+      //     )
+      //     if (line.length === 0) {
+      //       db.query(
+      //         `INSERT INTO  public."Voting"(id,email,"timeStamp") values($1,$2,$3)`,
+      //         [element, email, new Date()],
+      //       )
+      //       totalVote = totalVote - 1
+      //     }
+      //   } else {
+      //     return 0
+      //   }
+      // })
+
+      return sum.length
     } catch (err) {
       return err
     }

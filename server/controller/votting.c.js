@@ -3,7 +3,10 @@ const VottingM = require('../models/votting.m')
 module.exports = {
   voting: async (req, res, next) => {
     try {
-      let { id, email } = req.body
+      let { chosen, email } = req.body
+      let id = []
+      chosen.map((item) => id.push(item.id))
+      console.log(id)
       const message = await VottingM.voting({ id, email })
       return res.status(200).send({
         message: message,
