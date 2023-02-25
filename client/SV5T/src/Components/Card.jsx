@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons'
 import ReactHtmlParser from 'react-html-parser'
+import './Contestant.css'
 export default function Card({ display = {}, close, ...rest }) {
   return (
     <>
@@ -23,6 +24,7 @@ export default function Card({ display = {}, close, ...rest }) {
             }}
           ></div>
           <div
+            id="side"
             style={{
               width: '70vw',
               height: '100vh',
@@ -53,6 +55,7 @@ export default function Card({ display = {}, close, ...rest }) {
               </button>
             </div>
             <div
+              id="innerLayout"
               className="d-flex w-100 h-100 justify-content-between p-3"
               style={{
                 backgroundColor: '#E1E5EA',

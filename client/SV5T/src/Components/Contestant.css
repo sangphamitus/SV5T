@@ -1,0 +1,52 @@
+@media only screen and (min-width:280px) and (max-width:900px)
+{
+  #white-board {
+ 
+ 
+    width: 95% !important;
+    font-size: calc(0.5rem + 1vw) !important; 
+    padding : 1rem !important;
+  }
+  .responseTable
+  { 
+    overflow-x: scroll !important;
+  }
+  .page-link
+  {
+    padding: 0.4rem 0.4rem !important;
+  }
+  .btn 
+  {
+    padding: 0.1rem 0.2rem !important;
+    font-size: calc(0.5rem + 1vw) !important; 
+  }
+  #errorCompile{
+    font-size:calc(0.5rem + 1vw) !important; 
+  }
+  #vottingBtn{
+    margin: 1rem auto !important ;
+  }
+  #vottingBtn button
+  {
+   
+    font-size: calc(0.7rem + 1vw) !important; 
+  }
+  #side
+  {
+    width: 100vw !important;
+    font-size: calc(0.5rem + 1vw) !important; 
+  }
+  #side h4 {
+     font-size: calc(0.8rem + 1vw) !important; 
+  }
+  #innerLayout
+  {
+    display:  block !important;
+    
+  }
+  #innerLayout div
+  {
+    margin: 1rem auto ;
+    max-width: 100% !important;
+  }
+}

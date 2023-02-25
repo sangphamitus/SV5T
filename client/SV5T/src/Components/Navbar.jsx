@@ -1,6 +1,6 @@
 import imageLOGO from '../img/LOGO.png'
-import '../stle/style.css'
 
+import './Navbar.css'
 function Navbar() {
   return (
     <nav id="navbar">

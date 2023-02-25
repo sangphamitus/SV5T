@@ -104,12 +104,16 @@ export default function Voting({ chosen = [] }) {
         </div>
 
         {error.length > 0 && (
-          <p className="text-danger m-0" style={{ fontSize: '0.8rem' }}>
+          <p
+            id="errorCompile"
+            className="text-danger m-0"
+            style={{ fontSize: '0.8rem' }}
+          >
             {error}
           </p>
         )}
       </div>
-      <div className="d-flex justify-content-center">
+      <div id="vottingBtn" className="d-flex justify-content-center">
         <button
           className="px-3 py-1"
           style={{

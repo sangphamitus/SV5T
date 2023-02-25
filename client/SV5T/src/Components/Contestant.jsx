@@ -9,13 +9,16 @@ import Image from '../img/toBia2.png'
 import SortBtn from './SortBtn'
 import axios from 'axios'
 import Voting from './Voting'
+
+import './Contestant.css'
+
 function Contestant() {
-  const [data, setData] = React.useState([])
+  const [data, setData] = React.useState([{ id: '100' }])
   const [display, setDisplay] = React.useState({})
   const [chosen, setChosen] = React.useState([])
   const [pageProperty, setPageProperty] = React.useState({
     page: 1,
-    maxPage: 5,
+    maxPage: 10,
   })
   const [filterConfig, setFilterConfig] = React.useState({
     rows: 8,
@@ -45,6 +48,9 @@ function Contestant() {
   React.useEffect(() => {
     fetchData()
   }, [])
+  React.useEffect(() => {
+    fetchData()
+  }, [pageProperty.page, pageProperty.maxPage])
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,8 +58,6 @@ function Contestant() {
     }, 500)
     return () => clearTimeout(timer)
   }, [
-    pageProperty.page,
-    pageProperty.maxPage,
     filterConfig.rows,
     filterConfig.id,
     filterConfig.names,
@@ -73,6 +77,7 @@ function Contestant() {
       }}
     >
       <div
+        id="white-board"
         className="rounded-pill p-3 "
         style={{
           width: '80%',
@@ -82,160 +87,169 @@ function Contestant() {
           color: ' #2f4663',
         }}
       >
-        <table className="table ">
-          <thead className="text-center  ">
-            <tr className="align-items-center">
-              <th>#</th>
-              <th>MSSV-HS</th>
-              <th>Họ và tên</th>
-              <th>Khoa</th>
-              <th>Khóa</th>
-              <th>Điểm rèn luyện</th>
-              <th>Điểm học tập</th>
-              <th>Bỏ chọn</th>
-            </tr>
-          </thead>
+        <div className="responseTable">
+          <table className="table ">
+            <thead className="text-center  ">
+              <tr className="align-items-center">
+                <th>#</th>
+                <th>MSSV-HS</th>
+                <th>Họ và tên</th>
+                <th>Khoa</th>
+                <th>Khóa</th>
+                <th>Điểm rèn luyện</th>
+                <th>Điểm học tập</th>
+                <th>Bỏ chọn</th>
+              </tr>
+            </thead>
 
-          <tbody
-            className="text-center table-group-divider "
-            style={{
-              backgroundColor: 'white',
-              color: 'black',
-              fontSize: '0.8rem',
-              overflowY: 'scroll',
-            }}
-          >
-            <TableContest
-              data={chosen}
-              setDataShow={setDisplay}
-              choseAction={setChosen}
-              chosed={chosen}
-            />
-          </tbody>
-        </table>
+            <tbody
+              className="text-center table-group-divider "
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                fontSize: '0.8rem',
+                overflowY: 'scroll',
+              }}
+            >
+              <TableContest
+                data={chosen}
+                setDataShow={setDisplay}
+                choseAction={setChosen}
+                chosed={chosen}
+              />
+            </tbody>
+          </table>
+        </div>
+
         <hr />
-        <table className="table ">
-          <thead className="text-center  ">
-            <tr className="align-items-center">
-              <th>#</th>
-              <th>MSSV-HS</th>
-              <th>Họ và tên</th>
-              <th>Khoa</th>
-              <th>Khóa</th>
-              <th
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  switch (filterConfig.drl) {
-                    case 0:
-                      setFilterConfig({ ...filterConfig, drl: 1 })
-                      break
-                    case 1:
-                      setFilterConfig({ ...filterConfig, drl: -1 })
-                      break
-                    case -1:
-                      setFilterConfig({ ...filterConfig, drl: 0 })
-                      break
-                  }
-                }}
-              >
-                Điểm rèn luyện
-                <SortBtn status={filterConfig.drl} />
-              </th>
-              <th
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  switch (filterConfig.dht) {
-                    case 0:
-                      setFilterConfig({ ...filterConfig, dht: 1 })
-                      break
-                    case 1:
-                      setFilterConfig({ ...filterConfig, dht: -1 })
-                      break
-                    case -1:
-                      setFilterConfig({ ...filterConfig, dht: 0 })
-                      break
-                  }
-                }}
-              >
-                Điểm học tập
-                <SortBtn status={filterConfig.dht} />
-              </th>
-              <th>Chọn</th>
-            </tr>
-            <tr className="">
-              <th></th>
-              <th>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={filterConfig['id']}
-                  onChange={(e) => {
-                    setFilterConfig({ ...filterConfig, id: e.target.value })
+        <div className="responseTable">
+          <table className="table ">
+            <thead className="text-center  ">
+              <tr className="align-items-center">
+                <th>#</th>
+                <th>MSSV-HS</th>
+                <th>Họ và tên</th>
+                <th>Khoa</th>
+                <th>Khóa</th>
+                <th
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    switch (filterConfig.drl) {
+                      case 0:
+                        setFilterConfig({ ...filterConfig, drl: 1 })
+                        break
+                      case 1:
+                        setFilterConfig({ ...filterConfig, drl: -1 })
+                        break
+                      case -1:
+                        setFilterConfig({ ...filterConfig, drl: 0 })
+                        break
+                    }
+                  }}
+                >
+                  Điểm rèn luyện
+                  <SortBtn status={filterConfig.drl} />
+                </th>
+                <th
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    switch (filterConfig.dht) {
+                      case 0:
+                        setFilterConfig({ ...filterConfig, dht: 1 })
+                        break
+                      case 1:
+                        setFilterConfig({ ...filterConfig, dht: -1 })
+                        break
+                      case -1:
+                        setFilterConfig({ ...filterConfig, dht: 0 })
+                        break
+                    }
+                  }}
+                >
+                  Điểm học tập
+                  <SortBtn status={filterConfig.dht} />
+                </th>
+                <th>Chọn</th>
+              </tr>
+              <tr className="">
+                <th></th>
+                <th>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={filterConfig['id']}
+                    onChange={(e) => {
+                      setFilterConfig({ ...filterConfig, id: e.target.value })
 
-                    // fetchData()
-                  }}
-                />
-              </th>
-              <th>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={filterConfig['names']}
-                  onChange={(e) => {
-                    setFilterConfig({ ...filterConfig, names: e.target.value })
-                    // fetchData()
-                  }}
-                />
-              </th>
-              <th>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={filterConfig['faculty']}
-                  onChange={(e) => {
-                    setFilterConfig({
-                      ...filterConfig,
-                      faculty: e.target.value,
-                    })
-                    // fetchData()
-                  }}
-                />
-              </th>
-              <th>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={filterConfig['gen']}
-                  onChange={(e) => {
-                    setFilterConfig({ ...filterConfig, gen: e.target.value })
-                    // fetchData()
-                  }}
-                />
-              </th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
+                      // fetchData()
+                    }}
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={filterConfig['names']}
+                    onChange={(e) => {
+                      setFilterConfig({
+                        ...filterConfig,
+                        names: e.target.value,
+                      })
+                      // fetchData()
+                    }}
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={filterConfig['faculty']}
+                    onChange={(e) => {
+                      setFilterConfig({
+                        ...filterConfig,
+                        faculty: e.target.value,
+                      })
+                      // fetchData()
+                    }}
+                  />
+                </th>
+                <th>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={filterConfig['gen']}
+                    onChange={(e) => {
+                      setFilterConfig({ ...filterConfig, gen: e.target.value })
+                      // fetchData()
+                    }}
+                  />
+                </th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
 
-          <tbody
-            className="text-center table-group-divider "
-            style={{
-              backgroundColor: 'white',
-              color: 'black',
-              fontSize: '0.8rem',
-              overflowY: 'scroll',
-            }}
-          >
-            <TableContest
-              data={data.filter(
-                (item) => !chosen.some((item2) => item2.id === item.id),
-              )}
-              setDataShow={setDisplay}
-              choseAction={setChosen}
-              chosed={chosen}
-            />
-          </tbody>
-        </table>
+            <tbody
+              className="text-center table-group-divider "
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                fontSize: '0.8rem',
+                overflowY: 'scroll',
+              }}
+            >
+              <TableContest
+                data={data.filter(
+                  (item) => !chosen.some((item2) => item2.id === item.id),
+                )}
+                setDataShow={setDisplay}
+                choseAction={setChosen}
+                chosed={chosen}
+              />
+            </tbody>
+          </table>
+        </div>
+
         <div
           className="d-flex justify-content-between  align-items-center"
           style={{ fontSize: '0.8rem' }}
@@ -297,7 +311,9 @@ function Contestant() {
                     >
                       {item}
                     </button>
-                  ) : (
+                  ) : Math.abs(item - pageProperty.page) <= 1 ||
+                    item === 1 ||
+                    pageProperty.maxPage === item ? (
                     <button
                       className={'btn '}
                       onClick={() => {
@@ -310,18 +326,11 @@ function Contestant() {
                     >
                       {item}
                     </button>
+                  ) : Math.abs(item - pageProperty.page) === 2 ? (
+                    <span>...</span>
+                  ) : (
+                    <></>
                   )}
-                  {/* <button
-                    className={
-                      item === pageProperty.page ? 'btn btn-primary' : 'btn'
-                    }
-                    onClick={(e) => {
-                      setPageProperty({ ...pageProperty, page: item })
-                      fetchData()
-                    }}
-                  >
-                    {item}
-                  </button> */}
                 </li>
               ))}
 

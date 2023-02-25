@@ -135,7 +135,7 @@ header #content-header
 #content-header .thecontent
 {
   position: absolute;
-  background: linear-gradient(to bottom right,#5d2368,10%,#4c2062);
+  /* background: linear-gradient(to bottom right,#5d2368,10%,#4c2062); */
   width: 30vw;
   border-radius: 20%;
   z-index: 20;
@@ -148,7 +148,7 @@ header #content-header
 }
 #content-header .thecontent button
 {
-  color: #414ec0;
+  /* color: #414ec0; */
   border-radius: 20px;
   font-weight: 900;
   font-size: 1.25vw;
@@ -157,7 +157,7 @@ header #content-header
 }
 #content-header .thecontent button:hover
 {
-  background-color: #5d2368;
+  /* background-color: #5d2368; */
   border-radius: 20px;
   font-weight: 900;
   font-size: 1.25vw;
@@ -212,7 +212,7 @@ header #content-header
 {
   border-radius: 50px;
   text-decoration: none;
-  background-color: #8d489b;
+  /* background-color: #8d489b; */
   color: aliceblue;
 }
 #count-down-clock
@@ -290,7 +290,7 @@ header #content-header
   
   /* On hover, add a black background color with a little bit see-through */
   .prev:hover, .next:hover {
-    background-color: rgba(193, 96, 231, 0.8);
+    /* background-color: rgba(193, 96, 231, 0.8); */
     border-radius: 50px;
   }
   #info-page {
@@ -373,7 +373,7 @@ header #content-header
 }
 .voting button
 {
-  background-color: #7a10a7;
+  /* background-color: #7a10a7; */
   color:#fbf7fc;
   border-radius: 30px;
   font-weight: bold;
@@ -382,7 +382,7 @@ header #content-header
 }
 .voting button:hover
 {
-  background-color:#8d489b;
+  /* background-color:#8d489b; */
   color:black;
   
 }
@@ -435,8 +435,8 @@ header #content-header
 }
 #back-button:hover,#back-button-2:hover,#back-button-2:hover
 {
-  background-color:#8d489b;
-  color:rgb(235, 235, 235);
+  /* background-color:#8d489b; */
+  /* color:rgb(235, 235, 235); */
 }
 .Sttpage 
 {
@@ -450,7 +450,7 @@ header #content-header
 
 .contestant-item aside, .contestant-item-2 aside, .contestant-item-3 aside
 {
-  border: 2px solid #5d2368;
+  /* border: 2px solid #5d2368; */
   border-radius: 20px;
 }
 footer #footer-display
@@ -496,6 +496,7 @@ footer iframe
 
 @media only screen and (min-width:280px) and (max-width:900px)
 {
+ 
   #navbar 
   {
     height: fit-content;
@@ -513,13 +514,13 @@ footer iframe
   }
   #logo-display h4 span 
   {
-    color: #7a10a7;
+    /* color: #7a10a7; */
     font-weight: 900;
   
   }
   nav #menu-nav 
   {
-    display: none;
+    display: none !important;
 
    
   }
