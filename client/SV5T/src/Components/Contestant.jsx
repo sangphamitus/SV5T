@@ -31,7 +31,6 @@ function Contestant() {
   })
 
   const fetchData = () => {
-    console.log('API call')
     axios
       .post(`${import.meta.env.VITE_REACT_API_ENDPOINT}contestant/clientGet`, {
         page: pageProperty.page,
@@ -40,7 +39,7 @@ function Contestant() {
       .then((res) => {
         if (res.data.messages === 'success') {
           setData(res.data.returnData)
-          console.log(res.data)
+
           setPageProperty({ ...pageProperty, maxPage: res.data.maxPage })
         }
       })
@@ -283,7 +282,9 @@ function Contestant() {
                 <button
                   className="page-link "
                   disabled={pageProperty.page === 1}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault()
+
                     setPageProperty({
                       ...pageProperty,
                       page: pageProperty.page - 1,
@@ -302,7 +303,9 @@ function Contestant() {
                   {item === pageProperty.page ? (
                     <button
                       className={'btn btn-primary'}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault()
+
                         setPageProperty({
                           ...pageProperty,
                           page: item,
@@ -317,7 +320,9 @@ function Contestant() {
                     pageProperty.maxPage === item ? (
                     <button
                       className={'btn '}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault()
+
                         setPageProperty({
                           ...pageProperty,
                           page: item,
@@ -342,6 +347,7 @@ function Contestant() {
                   className="page-link "
                   disabled={pageProperty.page === pageProperty.maxPage}
                   onClick={(e) => {
+                    e.preventDefault()
                     setPageProperty({
                       ...pageProperty,
                       page: pageProperty.page + 1,

@@ -1,6 +1,6 @@
 
 
-@media only screen and (min-width:280px) and (max-width:900px)
+@media only screen and (min-width:180px) and (max-width:900px)
 {
     nav
     {
@@ -20,7 +20,7 @@
   
 
 }
-@media only screen and (min-width:280px) and (max-width:600px)
+@media only screen and (min-width:180px) and (max-width:600px)
 {
    #navbar div ul
 {
