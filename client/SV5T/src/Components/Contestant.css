@@ -49,4 +49,18 @@
     margin: 1rem auto ;
     max-width: 100% !important;
   }
+  #side 
+  {
+    overflow-x: scroll !important;
+    background-color: '#E1E5EA';
+  }
+  #innerLayout 
+  {
+    height: max-content !important;
+  }
+  #innerLayout img
+  {
+    min-width: 30vw !important;
+
+  }
 }

@@ -56,14 +56,14 @@ export default function Card({ display = {}, close, ...rest }) {
             </div>
             <div
               id="innerLayout"
-              className="d-flex w-100 h-100 justify-content-between p-3"
+              className="d-flex w-100 h-100 justify-content-around p-3"
               style={{
                 backgroundColor: '#E1E5EA',
                 color: 'black',
               }}
             >
               <div
-                className="p-2"
+                className="p-2 "
                 style={{
                   maxWidth: '40%',
                   backgroundColor: 'white',
@@ -71,11 +71,18 @@ export default function Card({ display = {}, close, ...rest }) {
                   height: 'fit-content',
                 }}
               >
-                <img
-                  src={display.img}
-                  style={{ maxWidth: '100%', borderRadius: '10px' }}
-                  loading="lazy"
-                />
+                <div className="d-flex justify-content-center w-100">
+                  <img
+                    src={display.img}
+                    style={{
+                      maxWidth: 'calc(20vw)',
+
+                      borderRadius: '10px',
+                    }}
+                    loading="lazy"
+                  />
+                </div>
+
                 <div className="mt-2">
                   <h4>{display.fmname + ' ' + display.name}</h4>
                   <h6>
