@@ -85,4 +85,12 @@ module.exports = {
     console.log(result)
     return result
   },
+  resetVote: async () => {
+    let line = await db.query(
+      `DELETE FROM public."Voting"
+    WHERE "id" not like ''`,
+    )
+
+    return true
+  },
 }

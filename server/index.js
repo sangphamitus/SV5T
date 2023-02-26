@@ -42,7 +42,7 @@ app.get(
 app.get('/search', require('./controller/contestant.c').search, errorHandler)
 app.post('/voting', require('./controller/votting.c').voting, errorHandler)
 app.get('/sum', require('./controller/votting.c').getallVoting, errorHandler)
-
+app.get('/delete', require('./controller/votting.c').resetVoting, errorHandler)
 app.listen(PORT, () =>
   console.log(`Server Listening on  http://127.0.0.1:${PORT}/ `),
 )

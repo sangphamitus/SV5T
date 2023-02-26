@@ -21,4 +21,8 @@ module.exports = {
       data: result,
     })
   },
+  resetVoting: async (req, res, next) => {
+    const result = await VottingM.resetVote()
+    return res.redirect('/sum')
+  },
 }
