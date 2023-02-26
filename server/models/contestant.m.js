@@ -1,6 +1,7 @@
 const { admin, db } = require('../.config/firebase')
 const fsPromises = require('fs/promises')
 const fs = require('fs')
+const FileData = './data/data.json'
 module.exports = {
   addContestant: async ({
     id,
@@ -23,7 +24,7 @@ module.exports = {
     achievement,
   }) => {
     try {
-      const read = await fsPromises.readFile('./data/data.json')
+      const read = await fsPromises.readFile(FileData)
       // Turn it to an object
       const obj = JSON.parse(read)
       let data = obj
@@ -51,7 +52,7 @@ module.exports = {
           hnt,
           achievement,
         })
-        fs.writeFileSync('./data/data.json', JSON.stringify(data), 'utf8')
+        fs.writeFileSync(FileData, JSON.stringify(data), 'utf8')
         return true
       }
     } catch (err) {
@@ -59,8 +60,9 @@ module.exports = {
     }
   },
   getAllContestant: async () => {
-    const read = await fsPromises.readFile('./data/data.json')
-    // Turn it to an object
+    console.log(FileData)
+    const read = await fsPromises.readFile(FileData)
+
     const obj = JSON.parse(read)
 
     return obj
@@ -163,12 +165,12 @@ module.exports = {
   deleteContestant: async (id) => {
     try {
       console.log(id)
-      const read = await fsPromises.readFile('./data/data.json')
+      const read = await fsPromises.readFile(FileData)
       // Turn it to an object
       const obj = JSON.parse(read)
 
       const data = obj.filter((doc) => doc.id.toString() !== id)
-      fs.writeFileSync('./data/data.json', JSON.stringify(data), 'utf8')
+      fs.writeFileSync(FileData, JSON.stringify(data), 'utf8')
       console.log('delete successed')
       return true
     } catch (err) {
@@ -179,7 +181,7 @@ module.exports = {
   search: async (inp) => {
     try {
       let data = []
-      const read = await fsPromises.readFile('./data/data.json')
+      const read = await fsPromises.readFile(FileData)
       // Turn it to an object
       const fullData = JSON.parse(read)
 
@@ -199,7 +201,7 @@ module.exports = {
     }
   },
   checkContestants: async (id) => {
-    const read = await fsPromises.readFile('./data/data.json')
+    const read = await fsPromises.readFile(FileData)
     // Turn it to an object
     const fullData = JSON.parse(read)
     const getContestants = fullData.filter((item) => item.id.toString() == id)
@@ -213,7 +215,7 @@ module.exports = {
   clientGet: async ({ page, rows, id, names, faculty, gen, drl, dht }) => {
     let data = []
 
-    const read = await fsPromises.readFile('./data/data.json')
+    const read = await fsPromises.readFile(FileData)
     // Turn it to an object
     const list = JSON.parse(read)
 

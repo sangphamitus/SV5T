@@ -1,11 +1,11 @@
 const express = require('express')
 const cors = require('cors')
 const exphbs = require('express-handlebars')
-const Handlebars = require('handlebars')
+// const Handlebars = require('handlebars')
 const PORT = 5200 || process.env.PORT
-const {
-  allowInsecurePrototypeAccess,
-} = require('@handlebars/allow-prototype-access')
+// const {
+//   allowInsecurePrototypeAccess,
+// } = require('@handlebars/allow-prototype-access')
 const app = express()
 var bodyParser = require('body-parser')
 app.use(cors())
