@@ -30,7 +30,7 @@ export default function Card({ display = {}, close, ...rest }) {
               height: '100vh',
               position: 'fixed',
               top: '0',
-              right: '0',
+              right: '15vw',
               backgroundColor: 'white',
               opacity: '1',
               zIndex: '200',
