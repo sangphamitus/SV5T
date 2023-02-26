@@ -5,8 +5,19 @@ function Navbar() {
   return (
     <nav id="navbar">
       <div id="logo-display">
-        <img src={imageLOGO} style={{ display: 'inline', maxHeight: '4rem' }} />
-        <h4 style={{ display: 'inline' }}>
+        <img
+          src={imageLOGO}
+          style={{ display: 'inline', maxHeight: '4rem', cursor: 'pointer' }}
+          onClick={() => {
+            window.location.href = '#'
+          }}
+        />
+        <h4
+          style={{ display: 'inline', cursor: 'pointer' }}
+          onClick={() => {
+            window.location.href = '#'
+          }}
+        >
           WEBSITE{' '}
           <span style={{ fontweight: 'small', fontsize: '10px' }}>
             BÌNH CHỌN
