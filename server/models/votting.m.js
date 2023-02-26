@@ -4,6 +4,7 @@ var emailCheck = require('email-check')
 module.exports = {
   voting: async ({ id, email }) => {
     try {
+      console.log('Voting')
       const total = await db.query(
         `SELECT * FROM public."Voting" WHERE  "email" like $1`,
         [email],
@@ -14,13 +15,15 @@ module.exports = {
         let map = []
         let count = total.length
         id.forEach((element) => {
-          if (!total.some((item) => item.id === element)) {
-            map.push(element)
+          if (
+            !total.some((item) => item.id.toString() === element.toString())
+          ) {
+            map.push(element.toString())
             count = count + 1
             if (count <= 3) {
               db.query(
                 `INSERT INTO  public."Voting"(id,email,"timeStamp") values($1,$2,$3)`,
-                [element, email, new Date()],
+                [element.toString(), email, new Date()],
               )
             }
           }
@@ -72,7 +75,7 @@ module.exports = {
 
     const result = await Promise.all(
       line.map(async (doc) => {
-        if ((await contestantM.checkContestants(doc.id)) !== true) {
+        if ((await contestantM.checkContestants(doc.id.toString())) !== true) {
           return { ...doc, exist: false }
         } else {
           return { ...doc, exist: true }
