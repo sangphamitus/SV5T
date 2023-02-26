@@ -71,6 +71,7 @@ module.exports = {
   getAllView: async (req, res, next) => {
     try {
       const result = await contestantsM.getAllContestant()
+
       return res.render('home.hbs', {
         data: result,
       })

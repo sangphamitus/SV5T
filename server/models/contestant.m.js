@@ -1,4 +1,6 @@
 const { admin, db } = require('../.config/firebase')
+const fsPromises = require('fs/promises')
+const fs = require('fs')
 module.exports = {
   addContestant: async ({
     id,
@@ -21,32 +23,35 @@ module.exports = {
     achievement,
   }) => {
     try {
-      const getContestants = await db.collection('contestants').doc(id).get()
-      if (getContestants.exists) {
+      const read = await fsPromises.readFile('./data/data.json')
+      // Turn it to an object
+      const obj = JSON.parse(read)
+      let data = obj
+      const getContestants = obj.filter((doc) => doc.id.toString() === id)
+      if (getContestants.length > 0) {
         return false
       } else {
-        db.collection('contestants')
-          .doc(id)
-          .set({
-            id,
-            img,
-            fmname,
-            name,
-            dob,
-            place,
-            clss,
-            faculty,
-            drl: parseFloat(drl.replace(',', '.')),
-            dht: parseFloat(dht.replace(',', '.')),
-            gen,
-            course,
-            ddt,
-            htt,
-            tlt,
-            tnt,
-            hnt,
-            achievement,
-          })
+        data.push({
+          id,
+          img,
+          fmname,
+          name,
+          dob,
+          place,
+          clss,
+          faculty,
+          drl: parseFloat(drl.replace(',', '.').replace('@', '')),
+          dht: parseFloat(dht.replace(',', '.').replace('@', '')),
+          gen,
+          course,
+          ddt,
+          htt,
+          tlt,
+          tnt,
+          hnt,
+          achievement,
+        })
+        fs.writeFileSync('./data/data.json', JSON.stringify(data), 'utf8')
         return true
       }
     } catch (err) {
@@ -54,14 +59,15 @@ module.exports = {
     }
   },
   getAllContestant: async () => {
-    let data = []
-    const list = await db.collection('contestants').get()
-    list.docs.map((doc) => data.push(doc.data()))
-    return data
+    const read = await fsPromises.readFile('./data/data.json')
+    // Turn it to an object
+    const obj = JSON.parse(read)
+
+    return obj
   },
   getContestant: async (id) => {
-    const data = await db.collection('contestants').doc(id).get()
-    const result = data.data()
+    const data = await getAllContestant()
+    const result = data.filter((item) => item.id == id)[0]
 
     let {
       img,
@@ -157,9 +163,12 @@ module.exports = {
   deleteContestant: async (id) => {
     try {
       console.log(id)
-      const data = await db.collection('contestants').doc(`${id}`).get()
-      console.log(data.data())
-      const result = await db.collection('contestants').doc(`${id}`).delete()
+      const read = await fsPromises.readFile('./data/data.json')
+      // Turn it to an object
+      const obj = JSON.parse(read)
+
+      const data = obj.filter((doc) => doc.id.toString() !== id)
+      fs.writeFileSync('./data/data.json', JSON.stringify(data), 'utf8')
       console.log('delete successed')
       return true
     } catch (err) {
@@ -170,24 +179,19 @@ module.exports = {
   search: async (inp) => {
     try {
       let data = []
-      const list = await db
-        .collection('contestants')
-        .where('id', '>=', inp)
-        .where('id', '<=', `${inp}\uF7FF`)
-        .get()
-      list.docs.map((doc) => data.push(doc.data()))
-      const listA = await db
-        .collection('contestants')
-        .where('name', '>=', inp)
-        .where('name', '<=', `${inp}\uF7FF`)
-        .get()
-      listA.docs.map((doc) => data.push(doc.data()))
-      const listB = await db
-        .collection('contestants')
-        .where('fmname', '>=', inp)
-        .where('fmname', '<=', `${inp}\uF7FF`)
-        .get()
-      listB.docs.map((doc) => data.push(doc.data()))
+      const read = await fsPromises.readFile('./data/data.json')
+      // Turn it to an object
+      const fullData = JSON.parse(read)
+
+      const list = fullData.filter((doc) => doc.id.toString().includes(inp))
+      list.map((doc) => data.push(doc))
+      const listA = fullData.filter((doc) =>
+        doc.fmname.toString().includes(inp),
+      )
+      listA.map((doc) => data.push(doc))
+      const listB = fullData.filter((doc) => doc.name.toString().includes(inp))
+      listB.map((doc) => data.push(doc))
+
       return data
     } catch (err) {
       console.log(err)
@@ -195,9 +199,12 @@ module.exports = {
     }
   },
   checkContestants: async (id) => {
-    const getContestants = await db.collection('contestants').doc(id).get()
+    const read = await fsPromises.readFile('./data/data.json')
+    // Turn it to an object
+    const fullData = JSON.parse(read)
+    const getContestants = fullData.filter((item) => item.id.toString() == id)
 
-    if (getContestants.exists === true) {
+    if (getContestants.length > 0) {
       return true
     } else {
       return false
@@ -205,10 +212,21 @@ module.exports = {
   },
   clientGet: async ({ page, rows, id, names, faculty, gen, drl, dht }) => {
     let data = []
-    const list = await db.collection('contestants').get()
-    list.docs.map((doc) => data.push(doc.data()))
-    if (id.length !== 0) {
-      data = data.filter((item) => item.id.includes(id))
+
+    const read = await fsPromises.readFile('./data/data.json')
+    // Turn it to an object
+    const list = JSON.parse(read)
+
+    list.map((doc) => {
+      data.push({
+        ...doc,
+        drl: parseFloat(doc.drl.replace(',', '.').replace('@', '')),
+        dht: parseFloat(doc.dht.replace(',', '.').replace('@', '')),
+      })
+    })
+
+    if (id.toString().length !== 0) {
+      data = data.filter((item) => item.id.toString().includes(id))
     }
 
     if (names.length !== 0) {
@@ -225,9 +243,9 @@ module.exports = {
       )
     }
 
-    if (gen.length !== 0) {
+    if (gen.toString().length !== 0) {
       data = data.filter((item) =>
-        item.gen.toLowerCase().includes(gen.toLowerCase().trim()),
+        item.gen.toString().toLowerCase().includes(gen.toLowerCase().trim()),
       )
     }
 
@@ -264,7 +282,7 @@ module.exports = {
 
     const maxPage = Math.ceil((data.length * 1.0) / rows)
     const returnData = data.slice((page - 1) * rows, page * rows)
-
+    console.log(maxPage)
     return {
       maxPage,
       returnData,

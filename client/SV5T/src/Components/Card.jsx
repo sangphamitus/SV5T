@@ -110,15 +110,15 @@ export default function Card({ display = {}, close, ...rest }) {
                     {display.dht}
                   </p>
                   <b>Đạo đức tốt: </b> <br />
-                  {ReactHtmlParser(display.ddt)}
+                  {ReactHtmlParser(display.ddt.replaceAll('@', '<br/>'))}
                   <b>Học tập tốt: </b> <br />
-                  {ReactHtmlParser(display.htt)}
+                  {ReactHtmlParser(display.htt.replaceAll('@', '<br/>'))}
                   <b>Thể lực tốt: </b> <br />
-                  {ReactHtmlParser(display.tlt)}
+                  {ReactHtmlParser(display.tlt.replaceAll('@', '<br/>'))}
                   <b>Tình nguyện tốt: </b> <br />
-                  {ReactHtmlParser(display.tnt)}
+                  {ReactHtmlParser(display.tnt.replaceAll('@', '<br/>'))}
                   <b>Hội nhập tốt: </b> <br />
-                  {ReactHtmlParser(display.hnt)}
+                  {ReactHtmlParser(display.hnt.replaceAll('@', '<br/>'))}
                 </div>
               </div>
             </div>

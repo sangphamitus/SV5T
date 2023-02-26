@@ -32,7 +32,7 @@ html {
     height: fit-content;
     display: flex;
      z-index: 100;
-    background-image: url('../img/Bia1.png') ;
+    background-image: url('../img/bia2.png') ;
     background-repeat: no-repeat;
     background-size: cover;
     justify-content: space-between;
@@ -112,10 +112,12 @@ header #content-header
   margin: 0;
   padding: 0;
   position: relative;
-  background-image: url('../img/Bia1.png');
-  background-size:     contain;                      /* <------ */
+  background-image: url('../img/bia2.png');
+  background-size:cover;                      /* <------ */
   background-repeat:   no-repeat;
   top: -1vh;
+  height: max-content;
+
 
 
 

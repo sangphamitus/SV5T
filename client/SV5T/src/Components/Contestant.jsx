@@ -40,6 +40,7 @@ function Contestant() {
       .then((res) => {
         if (res.data.messages === 'success') {
           setData(res.data.returnData)
+          console.log(res.data)
           setPageProperty({ ...pageProperty, maxPage: res.data.maxPage })
         }
       })
@@ -327,7 +328,9 @@ function Contestant() {
                       {item}
                     </button>
                   ) : Math.abs(item - pageProperty.page) === 2 ? (
-                    <span>...</span>
+                    <button className={'btn '} disabled>
+                      ...
+                    </button>
                   ) : (
                     <></>
                   )}
