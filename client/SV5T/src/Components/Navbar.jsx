@@ -28,7 +28,7 @@ function Navbar() {
           </li>
           <li>
             {' '}
-            <a href="#voting-button">Voting</a>
+            <a href="#voting">Voting</a>
           </li>
           <li>
             {' '}

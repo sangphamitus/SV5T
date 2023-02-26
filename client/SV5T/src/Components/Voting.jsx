@@ -87,7 +87,10 @@ export default function Voting({ chosen = [] }) {
   return (
     <>
       <hr />
-      <div className="w-100 d-flex align-items-center align-middle justify-content-between">
+      <div
+        className="w-100 d-flex align-items-center align-middle justify-content-between"
+        id="voting"
+      >
         <div style={{ width: '70%' }}>
           <label className="p-1"> Email sinh viên:</label>
           <input
