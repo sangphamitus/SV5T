@@ -77,7 +77,7 @@ module.exports = {
                         <p>Chúng tôi nhận được yêu cầu cần đặt lại số lượng voting, vui lòng nhập mã code phía dưới để tiếp tục. </p>
                         <div style="text-align:center">
                           <p dir="ltr">
-                          <a href="http://127.0.0.1:5200/resetVote?tk=${token}">Reset</a>
+                          <a href="https://sv5t-server.onrender.com/resetVote?tk=${token}">Reset</a>
                            
                           </p>
                         </div>
