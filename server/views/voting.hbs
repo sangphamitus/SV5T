@@ -1,43 +1,62 @@
-
-<div class="d-flex justify-content-center h-100">
-    Voting sumaries
+<div class='d-flex justify-content-center h-100'>
+  Voting sumaries
+</div>
+<div class='my-3'>
+  <span class='my-1'>
+    (*)Khi nhấn reset vote, mail sẽ gửi đến bạn qua đường link
+    <b>
+      (mã có hiệu lực trong 5 phút)
+    </b>
+  </span>
+  <div class='d-flex justify-content-center'>
+    <form action='../deleteCode' class='mx-4' method='post'>
+      <input type='submit' class='btn btn-danger' value='Reset Vote' />
+    </form>
   </div>
-
-<div >
-<table class="table table-striped table-bordered text-center overflow-y-scroll ">
-  <thead class="table-light">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Votting count</th>
-    
-    </tr>
-  </thead>
-  <tbody>
-    
-    {{#each data}}
-    {{#if this.exist}}
-     <tr class="text-decoration-none">
-      
-      <td >{{this.id}}</td>
-      <td >{{this.number}}</td>
-     
-    </tr>
-    {{else}}
-  <tr class=" text-danger">
-      
-      <td class="text-decoration-line-through" >{{this.id}}</td>
-      <td class="text-decoration-line-through">{{this.number}}</td>
-     
-    </tr>
-    {{/if}}
-    {{/each}}
-   
- 
-  </tbody>
-</table>
+  {{#if messages}}
+    <div class='d-flex justify-content-center'>
+      <span style='color: red;'>
+        {{messages}}
+      </span>
     </div>
-  <div class="d-flex justify-content-center">
-        <form action="../delete" class="mx-4">
-                <input type="submit" class="btn btn-danger" value="Reset Vote" />
-            </form>
-    <div>
+  {{/if}}
+</div>
+<div>
+  <table
+    class='table table-striped table-bordered text-center overflow-y-scroll'
+  >
+    <thead class='table-light'>
+      <tr>
+        <th scope='col'>
+          ID
+        </th>
+        <th scope='col'>
+          Voting count
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+        {{#if this.exist}}
+          <tr class='text-decoration-none'>
+            <td>
+              {{this.id}}
+            </td>
+            <td>
+              {{this.number}}
+            </td>
+          </tr>
+        {{else}}
+          <tr class='text-danger'>
+            <td class='text-decoration-line-through'>
+              {{this.id}}
+            </td>
+            <td class='text-decoration-line-through'>
+              {{this.number}}
+            </td>
+          </tr>
+        {{/if}}
+      {{/each}}
+    </tbody>
+  </table>
+</div>
