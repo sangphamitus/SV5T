@@ -28,7 +28,7 @@ const getReturnValues = (countDown) => {
   return [days, hours, minutes, seconds]
 }
 function Clock() {
-  const EndDate = 'Mar 25, 2023 23:00:00'
+  const EndDate = 'Mar 3, 2023 23:00:00'
   const [days, hours, minutes, seconds] = useCountdown(EndDate)
   if (days + hours + minutes + seconds <= 0) {
     return (
