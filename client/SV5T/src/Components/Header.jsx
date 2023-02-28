@@ -25,7 +25,7 @@ function Header() {
         >
           <p>Xin thông báo...</p>
           <p>
-            Bạn vừa nhận được một lá thư từ chú chim bồ câu "BAN TÌNH NGUYỀN -
+            Bạn vừa nhận được một lá thư từ chú chim bồ câu "BAN TÌNH NGUYỆN -
             HỖ TRỢ SINH VIÊN UEH" mang tên "SINH VIÊN 5 TỐT UEH 2022" sau một
             hành trình dài không ngừng nỗ lực, phấn đấu và kiên trì tới cùng
           </p>
