@@ -9,20 +9,42 @@ export default function Voting({ chosen = [] }) {
   const re = new RegExp('[A-z,0-9]+@st.ueh.edu.vn')
   const checkEmail = (email) => {
     if (email.length === 0) setError('Email trống')
-    else if (re.test(email) === false) setError('Email không hợp lệ')
-    else
+    else if (re.test(email) !== true) setError('Email không hợp lệ')
+    // {
+    //   axios
+    //   .post('https://detector.tools/api/v1/check_email', {
+    //     email: email.trim(),
+    //   })
+    //   .then((res) => {
+    //     if (res.data.isRealEmail === true) {
+    //       setError('')
+    //     } else setError('Email không tồn tại ')
+    //   })
+    //   .catch((err) => {
+    //     setError('Vui lòng thử lại sau ')
+    //   })
+    // }
+    else {
       axios
-        .post('https://detector.tools/api/v1/check_email', {
+        .post(`${import.meta.env.VITE_REACT_API_ENDPOINT}emailVerify`, {
           email: email.trim(),
         })
         .then((res) => {
-          if (res.data.isRealEmail === true) {
+          if (res.data.result === 'success') {
             setError('')
-          } else setError('Email không tồn tại ')
+          } else if (res.data.result === 'not') {
+            setError('Email không tồn tại ')
+          } else {
+            setError('Thử lại sau')
+          }
         })
+    }
   }
   React.useEffect(() => {
-    checkEmail(email)
+    const timer = setTimeout(() => {
+      checkEmail(email)
+    }, 10)
+    return () => clearTimeout(timer)
   }, [email])
 
   const submit = () => {
@@ -72,16 +94,18 @@ export default function Voting({ chosen = [] }) {
             )
         })
     } else {
-      toast.warn(error, {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      })
+      if (error.length > 0) {
+        toast.warn(error, {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        })
+      }
     }
   }
   return (
@@ -130,6 +154,7 @@ export default function Voting({ chosen = [] }) {
           onClick={() => {
             submit()
           }}
+          disabled={error.length > 0}
         >
           Vote
         </button>

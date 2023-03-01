@@ -55,7 +55,7 @@ function Contestant() {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       fetchData()
-    }, 500)
+    }, 100)
     return () => clearTimeout(timer)
   }, [
     filterConfig.rows,

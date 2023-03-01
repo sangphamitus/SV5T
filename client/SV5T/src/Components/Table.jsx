@@ -11,6 +11,7 @@ export default function TableContest({
   ...rest
 }) {
   const check = (idCheck) => {
+    console.log(idCheck.id)
     if (chosed.some((el) => el.id === idCheck.id)) {
       choseAction(chosed.filter((item) => item.id !== idCheck.id))
     } else {

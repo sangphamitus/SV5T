@@ -3,6 +3,7 @@ const cors = require('cors')
 const exphbs = require('express-handlebars')
 const dotenv = require('dotenv')
 dotenv.config()
+var verifier = require('email-verify')
 const PORT = 5200 || process.env.PORT
 // const {
 //   allowInsecurePrototypeAccess,
@@ -47,6 +48,30 @@ app.get('/delete', require('./controller/votting.c').resetVoting, errorHandler)
 app.post(
   '/deleteCode',
   require('./controller/votting.c').deleteCode,
+  errorHandler,
+)
+app.post(
+  '/emailVerify',
+  async (req, res, next) => {
+    const { email } = req.body
+    verifier.verify(`${email}`, function (err, info) {
+      if (err) {
+        return res.status(200).send({
+          result: 'try',
+        })
+      } else {
+        if (info.success) {
+          return res.status(200).send({
+            result: 'success',
+          })
+        } else {
+          return res.status(200).send({
+            result: 'not',
+          })
+        }
+      }
+    })
+  },
   errorHandler,
 )
 app.get('/resetVote', require('./models/authorize.m').codeVerify, errorHandler)
