@@ -44,7 +44,7 @@ export default function Voting({ chosen = [] }) {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       checkEmail(email)
-    }, 10)
+    }, 500)
     return () => clearTimeout(timer)
   }, [email])
 
