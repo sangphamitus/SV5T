@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import { verify } from 'email-verify'
 export default function Voting({ chosen = [] }) {
   const [email, setEmail] = React.useState('')
   const [error, setError] = React.useState('Trường Email trống')
@@ -10,6 +10,7 @@ export default function Voting({ chosen = [] }) {
   const checkEmail = (email) => {
     if (email.length === 0) setError('Email trống')
     else if (re.test(email) !== true) setError('Email không hợp lệ')
+    else setError('')
     // {
     //   axios
     //   .post('https://detector.tools/api/v1/check_email', {
@@ -24,22 +25,19 @@ export default function Voting({ chosen = [] }) {
     //     setError('Vui lòng thử lại sau ')
     //   })
     // }
-    else {
-      axios
-        .post(`${import.meta.env.VITE_REACT_API_ENDPOINT}emailVerify`, {
-          email: email.trim(),
-        })
-        .then((res) => {
-          console.log(res.data.result)
-          if (res.data.result === 'success') {
-            setError('')
-          } else if (res.data.result === 'not') {
-            setError('Email không tồn tại ')
-          } else {
-            setError('Thử lại sau')
-          }
-        })
-    }
+    // else {
+    //   verify(`${email}`, function (err, info) {
+    //     if (err) {
+    //       setError('Thử lại sau')
+    //     } else {
+    //       if (info.success) {
+    //         setError('')
+    //       } else {
+    //         setError('Email không tồn tại ')
+    //       }
+    //     }
+    //   })
+    // }
   }
   React.useEffect(() => {
     const timer = setTimeout(() => {
