@@ -30,6 +30,7 @@ export default function Voting({ chosen = [] }) {
           email: email.trim(),
         })
         .then((res) => {
+          console.log(res.data.result)
           if (res.data.result === 'success') {
             setError('')
           } else if (res.data.result === 'not') {

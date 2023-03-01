@@ -53,6 +53,7 @@ app.post(
 app.post(
   '/emailVerify',
   async (req, res, next) => {
+    
     const { email } = req.body
     verifier.verify(`${email}`, function (err, info) {
       if (err) {
